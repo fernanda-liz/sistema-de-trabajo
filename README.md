@@ -23,6 +23,39 @@ alcance y su propia regla de qué entra y qué no:
   fue el lugar más rápido de guardar algo a mitad de sesión), se documenta y se mueve al cofre
   correcto en cuanto se nota, en vez de dejarlo ahí "total ya está guardado".
 
+### 1.1 Criterios para decidir si un cofre nuevo hace falta
+
+No cualquier tema nuevo justifica una bóveda nueva. Antes de crear una:
+
+- **¿Tiene un dueño temático claro y distinto a los cofres que ya existen?** Si la respuesta cabe
+  dentro de "qué va acá" de un cofre existente, va ahí — no se crea uno nuevo por comodidad del
+  momento.
+- **¿El contenido se va a mezclar con otro dominio si no lo separo?** Ese es el motivo real para
+  dividir: evitar que información de un ámbito (ej. un proyecto de trabajo) termine contaminando el
+  wiki de otro (ej. una tesis), lo que hace más difícil compartir, auditar o archivar cada uno por
+  separado el día de mañana.
+- **¿Va a acumular su propia bitácora y su propio criterio de "qué no va acá"?** Si el contenido es
+  chico y no va a crecer, probablemente no necesita cofre propio — una entrada en un cofre existente
+  alcanza.
+- Un cofre "aparecido por accidente" (se escribió ahí porque era el lugar más rápido a mitad de
+  sesión) no se vuelve permanente solo por existir: se documenta qué pasó y su contenido se mueve al
+  cofre correcto en cuanto se nota.
+
+### 1.2 Trazabilidad, fechas, y qué hacer con lo descartado
+
+- **Toda entrada de `notas.md` lleva fecha** (`## [YYYY-MM-DD] Título`) — sin fecha, una decisión no
+  se puede ubicar en el tiempo ni saber si sigue vigente.
+- **Nunca se reescribe una entrada vieja** para "actualizarla" — si algo cambió, se agrega una
+  entrada nueva que referencia a la anterior. El historial completo es lo que permite reconstruir
+  *por qué* se decidió algo, no solo el estado actual.
+- **Lo que se probó y se descartó se anota como descartado, con fecha y motivo — nunca se borra en
+  silencio ni se deja ambiguo.** El riesgo real no es "me olvido de una idea vieja", es lo opuesto:
+  un agente (o yo en una sesión futura) lee una idea abandonada sin marcar y la trata como si
+  siguiera vigente, repitiendo un camino que ya se probó que no sirve. La entrada de una idea
+  descartada dice explícitamente "descartado — no continuar" y por qué.
+- Antes de asumir que no hay contexto previo sobre un tema, se lee la bitácora completa del cofre
+  correspondiente — no solo las últimas entradas.
+
 ## 2. Los tres archivos que sostienen cada cofre
 
 Cada cofre tiene la misma estructura mínima, independiente de su contenido:
@@ -60,7 +93,58 @@ si la herramienta de sincronización del cofre lo permite).
 Ver [`AGENTS.md`](AGENTS.md) / [`CLAUDE.md`](CLAUDE.md) en este mismo repo como plantilla de punto de
 partida para un cofre nuevo.
 
-## 4. Skills reutilizables (públicas)
+## 4. Captura y triaje: un inbox, no diez lugares sueltos
+
+Cuando hay varios ámbitos activos a la vez (trabajo, estudio, proyectos personales), las tareas e
+ideas se dispersan si cada una se anota donde sea más cómodo en el momento. El patrón que uso es
+"input mínimo, output máximo":
+
+1. **Un solo punto de captura** (`inbox.md` o equivalente): escribo ahí, sin clasificar, desde
+   cualquier dispositivo — una idea suelta, un link, una minuta, una tarea que surge.
+2. **Triaje** (lo hace el agente, no yo a mano): lee el inbox, clasifica por tema/ámbito, distribuye
+   cada ítem al tablero (kanban) del ámbito correspondiente, y si el ítem conecta con conocimiento
+   ya existente en otro cofre, crea la referencia cruzada — un link real, no una copia del contenido.
+3. **Registro del triaje**: cada pasada queda anotada en una bitácora de triaje (qué entró, a dónde
+   se mandó, qué se archivó) — misma lógica de trazabilidad que el resto del sistema.
+4. **Resumen periódico** (ej. semanal): cuántos ítems se triaron, a dónde fueron, qué sigue
+   pendiente y qué se cerró — para no tener que releer todo el historial para saber en qué está cada
+   cosa.
+
+La regla de fondo es la misma que en el resto del sistema: **el contenido real vive en un solo
+lugar** (el cofre/tablero que corresponde al ámbito), y todo lo demás son referencias hacia ahí —
+nunca copias que se puedan desincronizar.
+
+## 5. Plantillas reutilizables: el caso de las presentaciones en HTML
+
+El mismo principio de "una plantilla propia, probada, que no se reinventa cada vez" aplica más allá
+de las bóvedas de conocimiento. Para presentaciones, uso una plantilla HTML autocontenida con varios
+layouts predefinidos (portada, capítulo, comparación, estadísticas, cita, cierre, etc.) — un
+vocabulario de formas de mostrar información, no un diseño que se decide de nuevo cada vez:
+
+- Un solo archivo HTML con múltiples `<section>`, cada una un layout distinto e independiente.
+- Reglas de contenido no negociables: nunca inventar un dato o una cifra que no exista; distinguir
+  visualmente lo propio de lo citado; citar de dónde sale cada cifra; mostrar también lo que se
+  probó y se descartó (no solo lo que funcionó) — la credibilidad de un informe/deck se construye
+  mostrando el criterio, no solo el resultado.
+- Se arma un deck copiando la plantilla (nunca editando la maestra), borrando los layouts que no se
+  usan, y verificando en navegador + exportación a PDF antes de dar por terminado.
+
+### Editar esas plantillas sin gastar tokens en cada cambio chico
+
+Para cambios de "texto/imagen" (corregir una palabra, mover un bloque, cambiar o recortar una
+imagen) no hace falta volver a invocar un agente cada vez — eso es tokens gastados en algo que un
+editor visual resuelve directo. La opción que uso: convertir el HTML a un **canvas editable
+multi-artboard** (una diapositiva = un artboard) publicado como página compartible — click para
+seleccionar cualquier elemento, panel de propiedades, edición de texto inline, arrastrar para mover,
+deshacer/rehacer. Cada "Guardar" publica una versión nueva sin volver a pasar por el agente. Existe
+también la alternativa de un editor visual de HTML autoalojado y 100% independiente de cualquier
+plataforma de IA (ej. un builder open-source tipo drag-and-drop), para quien prefiera no depender de
+ninguna plataforma externa — más control, pero requiere programarlo y mantenerlo.
+
+La idea general — **plantilla fija y probada + edición visual liviana para los ajustes chicos** —
+aplica a cualquier HTML reutilizable, no solo a presentaciones.
+
+## 6. Skills reutilizables (públicas)
 
 Los flujos que se repiten seguido quedan como skills versionadas, en vez de reexplicarlos cada
 sesión. Repo separado: **[fernanda-liz/claude-skills](https://github.com/fernanda-liz/claude-skills)**.
@@ -75,8 +159,11 @@ sesión. Repo separado: **[fernanda-liz/claude-skills](https://github.com/fernan
   lista de referencias, niveles de encabezado, tablas/figuras, lenguaje sin sesgos). No gestiona
   bibliografía — eso lo sigue haciendo el gestor de referencias (Zotero u otro) vía su plugin de
   Word/Google Docs; esta skill solo define el formato correcto.
+- **`obsidian-task-sync`** — implementa el patrón de captura + triaje de la sección 4: un inbox
+  único, clasificación automática por ámbito, distribución a tableros temáticos y referencias
+  cruzadas hacia el conocimiento ya existente en otras bóvedas.
 
-## 5. Flujo de investigación académica: Zotero + skill APA 7
+## 7. Flujo de investigación académica: Zotero + skill APA 7
 
 Para cualquier cofre que implique leer y citar papers, informes o fuentes académicas, el gestor de
 referencias es **Zotero** — es la fuente de verdad de la bibliografía, no algo que reconstruyo a
@@ -98,7 +185,7 @@ mano ni que el agente inventa:
 Esta separación de responsabilidades (Zotero = bibliografía real, skill = formato) evita el error
 típico de que un agente "alucine" una referencia que suena plausible pero no existe.
 
-## 6. Reglas de higiene que aplico antes de publicar algo
+## 8. Reglas de higiene que aplico antes de publicar algo
 
 - Ningún archivo público lleva credenciales, tokens ni claves — ni siquiera *dónde* viven, para no
   dejar un mapa. Van solo en archivos ignorados por Git (`.env.local`, `*-config.md` fuera del
@@ -110,7 +197,7 @@ típico de que un agente "alucine" una referencia que suena plausible pero no ex
 - Lo que sí es público es el **método**: cómo está armado el sistema, qué convenciones sigo, qué
   skills reutilizo. El contenido real de cada proyecto se queda donde corresponde.
 
-## 7. Cómo se mantiene esto actualizado
+## 9. Cómo se mantiene esto actualizado
 
 Cada vez que cambia algo de fondo en el método — una convención nueva, una skill nueva, un ajuste al
 esquema de cofres — se refleja acá, filtrando cualquier dato específico de un proyecto privado. Este
