@@ -67,10 +67,16 @@ Cada cofre tiene la misma estructura mínima, independiente de su contenido:
 | `skills/` (o equivalente por herramienta) | Capacidades reutilizables y documentadas — un flujo que se repite se convierte en skill en vez de volver a explicarlo cada vez. |
 
 La razón de este trío: la memoria interna de cualquier agente de código vive **localmente en el
-equipo donde corriste la sesión** — no viaja sola si cambias de máquina, reinstalas, o cambias de
-herramienta. `CLAUDE.md`/`AGENTS.md` + `notas.md`, en cambio, son texto plano versionado (sincronizado
-por iCloud/Drive/lo que uses, y respaldado en Git con historial) — **esa es la memoria real que
-sobrevive** a un cambio de equipo o de herramienta.
+equipo donde corriste la sesión** (no viaja sola si cambias de máquina, reinstalas o cambias de
+herramienta). `CLAUDE.md`/`AGENTS.md` + `notas.md`, en cambio, son texto plano versionado (sincronizado
+por iCloud/Drive/lo que uses, y respaldado en Git con historial): esa es la memoria real que
+sobrevive a un cambio de equipo o de herramienta.
+
+**Tip:** `CLAUDE.md`/`AGENTS.md` no es solo para reglas del proyecto. También es el lugar para anotar
+preferencias personales de cómo querés que el agente escriba o se comunique (tono, formato,
+puntuación que no te gusta, variante regional del idioma, etc.) para no tener que repetirlas cada
+sesión. Esas preferencias personales conviene guardarlas en un archivo aparte (fuera de este repo
+público) si son específicas tuyas y no algo que le sirva a cualquiera que use el sistema.
 
 ## 3. Multi-herramienta: un mismo cofre, tres agentes distintos
 
