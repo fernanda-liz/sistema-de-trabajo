@@ -41,7 +41,33 @@ No cualquier tema nuevo justifica una bóveda nueva. Antes de crear una:
   sesión) no se vuelve permanente solo por existir: se documenta qué pasó y su contenido se mueve al
   cofre correcto en cuanto se nota.
 
-### 1.2 Trazabilidad, fechas, y qué hacer con lo descartado
+### 1.2 Los informes de estado llevan fecha y no se sobrescriben
+
+Hay dos tipos de documento en un cofre y conviene no confundirlos, porque envejecen distinto. Un
+**análisis** responde una pregunta concreta y sigue siendo válido mientras nadie lo refute. Un
+**informe de estado** es una foto del proyecto completo en un momento dado (qué se hizo, qué falta,
+qué está bloqueado, cuánto cuesta, cuál es la ruta), y caduca apenas el proyecto avanza.
+
+Por eso todo informe de estado lleva fecha en cuatro lugares a la vez:
+
+1. **El nombre del archivo**, con fecha completa (`informe-<tipo>-YYYY-MM-DD`), nunca solo el mes.
+   Así conviven varios informes de la serie y se pueden comparar en el tiempo.
+2. **El frontmatter**: fecha del informe, corte de datos (hasta dónde se leyó, que puede diferir de
+   la fecha de redacción) y número de versión.
+3. **El encabezado visible**, con la fecha, el informe anterior de la serie y la próxima revisión
+   sugerida.
+4. **Toda versión derivada** (una página publicada, un PDF, una presentación), en el encabezado y no
+   solo en el pie.
+
+Y una regla que importa más que las cuatro anteriores: **nunca se sobrescribe un informe anterior**.
+Se escribe uno nuevo con su propia fecha y se enlaza al previo. La serie completa termina siendo el
+registro de cómo evolucionó el proyecto, que suele ser más valioso que cualquiera de los informes
+por separado.
+
+Cada informe además declara explícitamente que sus cifras corresponden a esa fecha, y remite a la
+bitácora y a la lista de tareas como las fuentes que sí se mantienen al día.
+
+### 1.3 Trazabilidad, fechas, y qué hacer con lo descartado
 
 - **Toda entrada de `notas.md` lleva fecha** (`## [YYYY-MM-DD] Título`) — sin fecha, una decisión no
   se puede ubicar en el tiempo ni saber si sigue vigente.
