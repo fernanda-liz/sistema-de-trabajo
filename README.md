@@ -203,6 +203,35 @@ típico de que un agente "alucine" una referencia que suena plausible pero no ex
 - Lo que sí es público es el **método**: cómo está armado el sistema, qué convenciones sigo, qué
   skills reutilizo. El contenido real de cada proyecto se queda donde corresponde.
 
+### 8.1 Cómo respaldar un cofre que mezcla contenido propio con material de terceros
+
+Un cofre de investigación acumula dos cosas muy distintas: el conocimiento propio (síntesis,
+análisis, decisiones) y el material de terceros que lo alimenta (papers, PDFs, archivos originales).
+No se respaldan igual, y tratarlos como una sola cosa lleva a un repositorio inviable.
+
+El problema aparece rápido: un cofre con un par de cientos de fuentes puede pesar varios gigabytes,
+y el historial de git conserva cada versión de cada archivo binario, así que el repositorio pesa aún
+más que la carpeta. A eso se suma que el texto íntegro de un paper con derechos de autor no debería
+vivir en un repositorio remoto, ni siquiera privado, porque eso es redistribución.
+
+La solución que uso es un **espejo liviano**: un repositorio privado que contiene solo el contenido
+curado (la wiki, las reglas, las tareas, los documentos propios) y deja fuera, a propósito, la
+carpeta de fuentes originales, las credenciales y la configuración local de las apps. Pesa unos
+pocos megabytes en vez de gigabytes, y se puede clonar, revisar y respaldar sin fricción.
+
+Reglas prácticas del patrón:
+
+- Cada tipo de material se respalda por la vía que le corresponde: el conocimiento propio en git, las
+  fuentes de terceros en el gestor de referencias y en el almacenamiento en la nube, las
+  credenciales en ningún lado más que el equipo local.
+- El README del espejo dice explícitamente **qué no incluye y por qué**. Un respaldo parcial sin esa
+  advertencia se confunde con un respaldo completo, y esa confusión se descubre el día que falla algo.
+- La sincronización es manual y deliberada (copiar, revisar el diff, commitear), no automática. Así
+  cada actualización pasa por una revisión de qué se está subiendo.
+- Antes de cada push, verificación de credenciales por búsqueda de patrones y de archivos pesados.
+  Los falsos positivos son normales (una frase, un identificador, un nombre propio) y se revisan uno
+  por uno en vez de confiar en el resultado del comando.
+
 ## 9. Cómo se mantiene esto actualizado
 
 Cada vez que cambia algo de fondo en el método — una convención nueva, una skill nueva, un ajuste al
