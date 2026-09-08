@@ -258,7 +258,23 @@ Reglas prácticas del patrón:
   Los falsos positivos son normales (una frase, un identificador, un nombre propio) y se revisan uno
   por uno en vez de confiar en el resultado del comando.
 
-## 9. Cómo se mantiene esto actualizado
+## 9. Sincronización Obsidian → Kanban Web (automática)
+
+Sistema completo de captura, clasificación y sincronización sin intervención manual:
+
+- **Captura**: Escribe en Obsidian (`captura/inbox.md`) sin clasificar
+- **Sincronización**: AppleScript (cada 5 min) copia a Google Drive → AppScript procesa → Google Sheet
+- **Visualización**: Kanban web interactivo con drag-drop, checklist, progreso en %
+- **Triaje inteligente**: Claude clasifica por ámbito/tema y distribuye automáticamente
+
+📖 **Documentación completa**: [`docs/SYNC-OBSIDIAN-KANBAN.md`](docs/SYNC-OBSIDIAN-KANBAN.md)
+
+Scripts reutilizables:
+- [`scripts/sync-obsidian-to-drive.applescript`](scripts/sync-obsidian-to-drive.applescript)
+- [`scripts/com.obsidian.sync.kanban.plist`](scripts/com.obsidian.sync.kanban.plist)
+- [`scripts/kanban-appscript-auto-sync.gs`](scripts/kanban-appscript-auto-sync.gs)
+
+## 10. Cómo se mantiene esto actualizado
 
 Cada vez que cambia algo de fondo en el método — una convención nueva, una skill nueva, un ajuste al
 esquema de cofres — se refleja acá, filtrando cualquier dato específico de un proyecto privado. Este
