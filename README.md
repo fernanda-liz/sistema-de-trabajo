@@ -279,3 +279,37 @@ Scripts reutilizables:
 Cada vez que cambia algo de fondo en el método — una convención nueva, una skill nueva, un ajuste al
 esquema de cofres — se refleja acá, filtrando cualquier dato específico de un proyecto privado. Este
 repo documenta el *cómo*, no el *qué* de cada proyecto.
+
+---
+
+## 📚 Tutorial Interactivo: Obsidian + Zotero + IAs + Triaje Automático
+
+**Para alguien que quiere replicar el sistema desde cero, sin conocimiento previo.**
+
+Este manual paso a paso cubre:
+
+✅ **Captura sin clasificar** en Obsidian (desde iPhone, iPad, Mac — iCloud sync)  
+✅ **4 IAs disponibles:** Claude Code (Anthropic), Codex (OpenAI), Antigravity (Google), OpenClaw (China)  
+✅ **Sistema de triaje automático** que distribuye tareas a kanbans personales por ámbito/tema  
+✅ **Zotero integrado** para referencias académicas automáticas (APA 7)  
+✅ **Multi-plataforma:** Mac, Windows, Linux  
+✅ **Descargable y sin datos sensibles** — seguro para usar y compartir
+
+📖 **Abre el tutorial:** [`docs/tutorial-sistema-completo.html`](docs/tutorial-sistema-completo.html)
+
+**O descárgalo completo** desde el navegador (botón derecho → Guardar como HTML) para usarlo offline.
+
+**Tiempo:** ~40 minutos desde cero hasta tener todo funcionando.
+
+**Incluye:**
+- Instalación paso a paso de Node.js (todas las plataformas)
+- Comparación de IAs con ventajas/desventajas de cada una
+- Cómo crear tu primer "cofre" (estructura mínima)
+- Obsidian: inbox + captura sin clasificar
+- Sistema de triaje explicado (cómo la IA lo distribuye todo automáticamente)
+- Integración Zotero + generación de citas APA 7
+- Flujo real completo (caso práctico paso a paso)
+- Checklist de seguridad antes de compartir un cofre público
+
+El tutorial es **interactivo** (tabs por IA, snippets copiables, ejemplos de flujo real) y está
+pensado para que cualquiera pueda replicar el método sin depender de una herramienta específica.
