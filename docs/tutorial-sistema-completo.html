@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual: Obsidian + Zotero + IAs (Claude, Codex, Antigravity, OpenClaw) + Triaje Automático</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto; color: #333; line-height: 1.6; background: #f5f5f5; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header { background: linear-gradient(135deg, #2c3e50, #3498db); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; }
+        h1 { font-size: 2em; margin-bottom: 10px; }
+        h2 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; margin-top: 40px; }
+        h3 { color: #3498db; margin-top: 25px; margin-bottom: 15px; }
+        .step { background: #ecf0f1; padding: 15px; margin: 20px 0; border-left: 4px solid #3498db; border-radius: 5px; }
+        .code { background: #1a1a1a; color: #0f0; padding: 12px; border-radius: 5px; font-family: monospace; overflow-x: auto; margin: 15px 0; font-size: 0.9em; }
+        .success { background: #d4edda; border-left: 4px solid #27ae60; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .warning { background: #fff3cd; border-left: 4px solid #f39c12; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .ia-box { border: 2px solid #3498db; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .ia-box h4 { color: #3498db; margin-bottom: 10px; }
+        .comparison { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .comparison th { background: #3498db; color: white; padding: 12px; text-align: left; }
+        .comparison td { padding: 12px; border-bottom: 1px solid #ddd; }
+        .comparison tr:hover { background: #f5f5f5; }
+        .flowchart { background: #f9f9f9; padding: 20px; border-radius: 8px; font-family: monospace; white-space: pre; margin: 20px 0; overflow-x: auto; }
+        .tab { display: none; }
+        .tab.active { display: block; }
+        .tab-buttons { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+        .tab-btn { padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .tab-btn.active { background: #2c3e50; }
+        .tab-btn:hover { background: #2980b9; }
+        p { margin-bottom: 15px; }
+        ul, ol { margin-left: 20px; margin-bottom: 15px; }
+        li { margin-bottom: 8px; }
+        .diagram-ascii { background: #1a1a1a; color: #0f0; padding: 15px; border-radius: 5px; font-family: monospace; white-space: pre; font-size: 0.85em; overflow-x: auto; }
+        footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Sistema Integrado: Obsidian + Zotero + IAs + Triaje</h1>
+            <p>Manual interactivo para Valeska — Replicate el flujo de trabajo con cualquier IA</p>
+        </header>
+
+        <h2>🎯 Introducción: ¿Qué es este sistema?</h2>
+        <p>Este manual te enseña a:</p>
+        <ol>
+            <li><strong>Capturar sin clasificar</strong> en Obsidian (notas, tareas, ideas)</li>
+            <li><strong>Triaje automático:</strong> Una IA distribuye todo a kanbans personales (por proyecto, tema, ámbito)</li>
+            <li><strong>Zotero integrado:</strong> Referencias académicas automáticas en formato APA 7</li>
+            <li><strong>Cualquier IA:</strong> Claude Code, Codex, Antigravity u OpenClaw — elige una o varias</li>
+            <li><strong>Segundo cerebro:</strong> Que sobreviva a cambios de equipo, SO o herramienta</li>
+        </ol>
+
+        <div class="success">
+            <strong>⏱️ Tiempo total: 30-40 minutos desde cero hasta funcionando</strong>
+        </div>
+
+        <h2>📋 Diagrama del flujo completo</h2>
+        <div class="diagram-ascii">
+┌─────────────────────────────────────┐
+│  1️⃣ CAPTURA (Obsidian)            │
+│  Escribe en inbox.md sin clasificar │
+│  (iPhone, iPad, Mac — iCloud sync)  │
+└────────────┬────────────────────────┘
+             │
+             ↓
+┌─────────────────────────────────────┐
+│  2️⃣ TRIAJE (Tu IA elige)          │
+│  • Ámbito (Trabajo, Tesis, etc)    │
+│  • Tema (Proyecto A, Entrega B)    │
+│  • Fecha objetivo                  │
+└────────────┬────────────────────────┘
+             │
+             ↓
+┌─────────────────────────────────────┐
+│  3️⃣ KANBAN PERSONAL                │
+│  Backlog → En curso → Bloqueado    │
+│  (Tu diseñas la estructura)         │
+└────────────┬────────────────────────┘
+             │
+             ↓
+┌─────────────────────────────────────┐
+│  4️⃣ ZOTERO (Referencias APA 7)    │
+│  IA agrega PDFs automáticamente    │
+└──────────────────────────────────────┘
+        </div>
+
+        <h2>🔧 Paso 1: Instala Node.js (Necesario para todas las IAs)</h2>
+
+        <div class="step">
+            <strong>Mac (con Homebrew):</strong>
+            <div class="code">brew install node</div>
+        </div>
+
+        <div class="step">
+            <strong>Windows:</strong> Descarga desde <code>nodejs.org</code> (versión LTS 22+)
+        </div>
+
+        <div class="step">
+            <strong>Linux:</strong>
+            <div class="code">sudo apt install nodejs npm  # Debian/Ubuntu
+sudo dnf install nodejs npm  # Fedora
+sudo pacman -S nodejs npm    # Arch</div>
+        </div>
+
+        <div class="success">
+            <strong>Verifica:</strong> <code>node --version</code> y <code>npm --version</code> deben mostrar números
+        </div>
+
+        <h2>🤖 Paso 2: Elige tu IA (o varias)</h2>
+
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="showTab(event, 'claude')">🤖 Claude Code</button>
+            <button class="tab-btn" onclick="showTab(event, 'codex')">🔮 Codex (OpenAI)</button>
+            <button class="tab-btn" onclick="showTab(event, 'antigravity')">🌌 Antigravity</button>
+            <button class="tab-btn" onclick="showTab(event, 'openclaw')">🐉 OpenClaw</button>
+        </div>
+
+        <div id="claude" class="tab active">
+            <h3>Claude Code (Anthropic)</h3>
+            <div class="ia-box">
+                <h4>Instalación</h4>
+                <div class="code">npm install -g @anthropic-ai/claude-code
+claude --version</div>
+                <p><strong>Primer uso:</strong> Al ejecutar <code>claude</code>, logueate con tu cuenta de Anthropic (plan gratis o pago)</p>
+                <h4>✅ Ventajas</h4>
+                <ul>
+                    <li>Mejor comprensión de contexto (lee CLAUDE.md automáticamente)</li>
+                    <li>Excelente para análisis complejos</li>
+                    <li>Soporte nativo de MCP (Model Context Protocol)</li>
+                </ul>
+                <h4>⚠️ Consideraciones</h4>
+                <ul>
+                    <li>Requiere cuenta de Anthropic</li>
+                    <li>Costo según uso (plan gratis tiene límites)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="codex" class="tab">
+            <h3>Codex CLI (OpenAI)</h3>
+            <div class="ia-box">
+                <h4>Instalación</h4>
+                <div class="code">npm install -g @openai/codex
+codex --version</div>
+                <p><strong>Primer uso:</strong> Necesitas una API key de OpenAI (genera en platform.openai.com) o autenticar con tu cuenta ChatGPT</p>
+                <h4>✅ Ventajas</h4>
+                <ul>
+                    <li>Excelente para código y scripting</li>
+                    <li>Compatible con macOS, Windows, Linux</li>
+                    <li>Modelos rápidos y económicos</li>
+                </ul>
+                <h4>⚠️ Consideraciones</h4>
+                <ul>
+                    <li>API key debe guardarse en archivo .env (nunca en Git público)</li>
+                    <li>Costo variable según tokens usados</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="antigravity" class="tab">
+            <h3>Antigravity (Google)</h3>
+            <div class="ia-box">
+                <h4>Instalación</h4>
+                <ol>
+                    <li>Baja desde <code>antigravity.google/download</code></li>
+                    <li>Instala el ejecutable para tu SO (macOS, Windows, Linux)</li>
+                    <li>Logueate con tu cuenta de Gmail personal</li>
+                </ol>
+                <p><strong>Nota:</strong> Antigravity es un IDE completo, no solo CLI. Más que las otras opciones.</p>
+                <h4>✅ Ventajas</h4>
+                <ul>
+                    <li>IDE visual integrado</li>
+                    <li>Acceso a herramientas Google (Drive, Sheets, Docs)</li>
+                    <li>Debugging avanzado</li>
+                </ul>
+                <h4>⚠️ Consideraciones</h4>
+                <ul>
+                    <li>Mayor consumo de recursos</li>
+                    <li>Requiere cuenta de Gmail personal (no workspace corporativa)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="openclaw" class="tab">
+            <h3>OpenClaw (IA China)</h3>
+            <div class="ia-box">
+                <h4>Instalación</h4>
+                <div class="code">npm install -g @openclaw/cli
+openclaw --version</div>
+                <p><strong>Primer uso:</strong> Crea cuenta en platform.openclaw.ai y genera API key</p>
+                <h4>✅ Ventajas</h4>
+                <ul>
+                    <li>Modelos optimizados para chino y multihabilidad</li>
+                    <li>Costos muy competitivos</li>
+                    <li>Buena compatibilidad con estándares OpenAI</li>
+                </ul>
+                <h4>⚠️ Consideraciones</h4>
+                <ul>
+                    <li>Latencia (servidores en China)</li>
+                    <li>Documentación principalmente en chino</li>
+                    <li>API key debe estar en .env (seguro)</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>📁 Paso 3: Crea tu primer "Cofre"</h2>
+
+        <p>Un cofre es simplemente una carpeta con estructura mínima:</p>
+
+        <div class="code">mkdir mi-cofre
+cd mi-cofre
+git init
+echo "# Mi Cofre" > README.md
+echo "# Reglas del proyecto" > CLAUDE.md
+echo "# Notas internas" > notas.md</div>
+
+        <div class="step">
+            <strong>CLAUDE.md (o AGENTS.md):</strong> Escribe las reglas de tu proyecto:
+            <ul style="margin-top: 10px;">
+                <li>¿Qué va en este cofre?</li>
+                <li>¿Qué se excluye?</li>
+                <li>Estructura de carpetas</li>
+                <li>Convenciones (nombrado de archivos, format)</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <strong>notas.md:</strong> Bitácora append-only con entradas fechadas. Nunca se reescribe, solo se agrega.
+            <div class="code">## [2026-09-11] Primer cofre creado
+Descripción de qué estoy haciendo
+
+## [2026-09-12] Integración Zotero completada
+Lo que cambió hoy</div>
+        </div>
+
+        <h2>🗂️ Paso 4: Obsidian — Captura sin clasificar</h2>
+
+        <p><strong>Descarga Obsidian:</strong> obsidian.md (gratis, app local)</p>
+
+        <div class="step">
+            <strong>Estructura recomendada:</strong>
+            <div class="code">mi-cofre/
+├── CLAUDE.md
+├── notas.md
+├── captura/
+│   └── inbox.md          ← Todo entra aquí, sin clasificar
+├── kanban/
+│   └── trabajo.md        ← Tu kanban personal (diseñado por ti)
+└── wiki/
+    └── index.md          ← Índice de artículos/páginas</div>
+        </div>
+
+        <div class="step">
+            <strong>inbox.md — Formato:</strong>
+            <div class="code"># Inbox
+
+Nuevas entradas van AL INICIO, separadas por ---
+
+## [NUEVAS ENTRADAS - ESCRIBE AQUÍ]
+
+Entrada 1 (la más nueva)
+Entrada 2
+
+---
+
+## 2026-09-10 (✅ TRIADO)
+Entrada triada anterior
+
+---</div>
+        </div>
+
+        <h2>🎯 Paso 5: Sistema de Triaje (Lo mágico)</h2>
+
+        <p>Una vez escribes en <code>inbox.md</code>, tu IA:</p>
+
+        <ol>
+            <li><strong>Lee</strong> lo nuevo (desde el primer --- hacia abajo)</li>
+            <li><strong>Identifica:</strong> Ámbito (Trabajo, Tesis, Diseño), Tema (Proyecto X), Fecha objetivo</li>
+            <li><strong>Crea tarea</strong> en tu kanban personal con formato:</li>
+        </ol>
+
+        <div class="code">- [ ] Título claro con verbo #tema/subtema 📅 2026-09-15 (2h/día)</div>
+
+        <ol start="4">
+            <li><strong>Archiva</strong> la entrada en <code>inbox-archive-YYYY-MM-DD.md</code></li>
+            <li><strong>Limpia</strong> el inbox y lo deja listo para nuevas entradas</li>
+        </ol>
+
+        <div class="warning">
+            <strong>Regla de oro:</strong> Nunca borres nada. Siempre archiva con fecha. El historial es tu memoria.
+        </div>
+
+        <h2>📚 Paso 6: Zotero — Referencias automáticas APA 7</h2>
+
+        <p><strong>Instala Zotero:</strong> zotero.org (gratis, 300MB; pago para más)</p>
+
+        <div class="step">
+            <strong>Configuración básica:</strong>
+            <ol>
+                <li>Abre Zotero y crea una biblioteca (o usa la por defecto)</li>
+                <li>En tu IA, conecta Zotero vía MCP (Model Context Protocol)</li>
+                <li>La IA puede ahora buscar artículos, descargar PDFs y agregarlos automáticamente</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <strong>Flujo ejemplo:</strong>
+            <div class="code">Usuario en inbox: "Necesito artículo sobre impresión 3D y composites"
+↓
+IA triaja: "Buscar referencias → Agregar a Zotero → Crear página wiki con citas APA 7"
+↓
+Resultado: Zotero tiene 5 nuevos artículos + wiki actualizada</div>
+        </div>
+
+        <h2>🚀 Paso 7: Flujo Real — Ejemplo de Valeska</h2>
+
+        <div class="flowchart">
+1️⃣ CAPTURA (viernes 19:00)
+└─ "Necesito instalar Obsidian y conectarlo a tesis de lapislázuli"
+
+2️⃣ TRIAJE (automático)
+├─ Ámbito: Tesis
+├─ Tema: Setup herramientas
+└─ Fecha: 2026-09-13
+
+3️⃣ KANBAN (Tesis personal)
+└─ [ ] Instalar + configurar Obsidian para tesis #setup 📅 2026-09-13 (1h)
+
+4️⃣ EJECUCIÓN (Claude Code abre el cofre)
+├─ Lee CLAUDE.md → Entiende reglas
+├─ Ayuda a configurar estructura
+└─ Crea wiki/index.md con categorías
+
+5️⃣ ZOTERO
+├─ Agregar referencias de tesis existentes
+└─ Generar bibliografía APA 7
+
+6️⃣ TERMINADO ✅
+└─ Valeska tiene: Obsidian + Zotero + IA + Triaje funcionando
+        </div>
+
+        <h2>✅ Checklist: Antes de empezar</h2>
+
+        <table class="comparison">
+            <tr>
+                <th>Requisito</th>
+                <th>Costo</th>
+                <th>Tiempo</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>Node.js 22+</td>
+                <td>Gratis</td>
+                <td>5 min</td>
+                <td>☐</td>
+            </tr>
+            <tr>
+                <td>IA (Claude, Codex, Antigravity u OpenClaw)</td>
+                <td>Gratis (plan básico) o pago</td>
+                <td>10 min</td>
+                <td>☐</td>
+            </tr>
+            <tr>
+                <td>Obsidian</td>
+                <td>Gratis</td>
+                <td>5 min</td>
+                <td>☐</td>
+            </tr>
+            <tr>
+                <td>Zotero</td>
+                <td>Gratis (300MB) o pago</td>
+                <td>10 min</td>
+                <td>☐</td>
+            </tr>
+            <tr>
+                <td>Crear primer cofre</td>
+                <td>Gratis</td>
+                <td>5 min</td>
+                <td>☐</td>
+            </tr>
+            <tr>
+                <td><strong>TOTAL</strong></td>
+                <td><strong>Gratis</strong></td>
+                <td><strong>~40 min</strong></td>
+                <td>☐</td>
+            </tr>
+        </table>
+
+        <div class="success">
+            <strong>🎯 Una vez completado: Tendrás un "segundo cerebro" personal que funciona en Mac, Windows o Linux, que sobrevive a cambios de equipo, y que puedes comparti con cualquiera (sin datos sensibles).</strong>
+        </div>
+
+        <h2>🔗 Recursos</h2>
+
+        <ul>
+            <li><strong>Repo principal:</strong> github.com/fernanda-liz/sistema-de-trabajo</li>
+            <li><strong>Skills reutilizables:</strong> github.com/fernanda-liz/claude-skills</li>
+            <li><strong>Documentación Obsidian:</strong> help.obsidian.md</li>
+            <li><strong>API Zotero:</strong> zotero.org/support/dev/client_key</li>
+            <li><strong>MCP Protocol:</strong> spec.modelcontextprotocol.io</li>
+        </ul>
+
+        <footer>
+            <p><strong>Manual creado para Valeska — Septiembre 2026</strong></p>
+            <p>Abierto a cambios y mejoras. Preguntas: contacta al creador del sistema.</p>
+            <p>Este documento NO contiene datos personales, credenciales ni información sensible. Es seguro compartir públicamente.</p>
+        </footer>
+    </div>
+
+    <script>
+        function showTab(event, tabName) {
+            const tabs = document.getElementsByClassName('tab');
+            for (let tab of tabs) tab.classList.remove('active');
+            const btns = document.getElementsByClassName('tab-btn');
+            for (let btn of btns) btn.classList.remove('active');
+            document.getElementById(tabName).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
